@@ -26,9 +26,6 @@ import com.ustc.location.view.MyMapView;
 import java.util.List;
 import java.util.Vector;
 
-/**
- * 程序主界面
- */
 public class NaviActivity extends AppCompatActivity  {
     private MyMapView mapView;
     private List<Anchor> anchors;
@@ -110,26 +107,17 @@ public class NaviActivity extends AppCompatActivity  {
             mapView.drawTool.point.setXY(points.get(beginPoint).getPosX(),points.get(beginPoint).getPosY());
             DrawEvent e = new DrawEvent(mapView.drawTool, DrawEvent.DRAW_END,
                     mapView.drawTool.drawGraphic);
-//            for(int i=0;i<points.size();i++){
-//                mapView.drawTool.point.setXY(points.get(i).getPosX(), points.get(i).getPosY());
-//                //mapView.drawTool.sendDrawEndEvent();
-//                DrawEvent e = new DrawEvent(mapView.drawTool, DrawEvent.DRAW_END,
-//                        mapView.drawTool.drawGraphic);
-//                mapView.drawTool.notifyEvent(e);
-//            }
             mapView.drawTool.notifyEvent(e);
             mapView.drawTool.activate(DrawTool.POLYLINE);
         }catch (Exception e){
-            Toast.makeText(this, "定位系统初始化失败！", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "地图绘制程序出现错误", Toast.LENGTH_SHORT).show();
         }
+        Toast.makeText(this, "请点击目的地进行导航", Toast.LENGTH_SHORT).show();
     }
     private void addLine(int a,int b){
         lines[a][b]=NaviTool.calDis(points.get(a),points.get(b));
         lines[b][a]=lines[a][b];
     }
-    /**
-     * 设置右上角的菜单选项
-     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = this.getMenuInflater();
@@ -137,9 +125,7 @@ public class NaviActivity extends AppCompatActivity  {
         return true;
     }
 
-    /**
-     * 点击菜单的事件响应
-     */
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){

@@ -137,29 +137,29 @@ public class DrawTool extends Subject {
 		this.startPoint=null;
 	}
 
-	public MarkerSymbol getMarkerSymbol() {
-		return markerSymbol;
-	}
-
-	public void setMarkerSymbol(MarkerSymbol markerSymbol) {
-		this.markerSymbol = markerSymbol;
-	}
-
-	public LineSymbol getLineSymbol() {
-		return lineSymbol;
-	}
-
-	public void setLineSymbol(LineSymbol lineSymbol) {
-		this.lineSymbol = lineSymbol;
-	}
-
-	public FillSymbol getFillSymbol() {
-		return fillSymbol;
-	}
-
-	public void setFillSymbol(FillSymbol fillSymbol) {
-		this.fillSymbol = fillSymbol;
-	}
+//	public MarkerSymbol getMarkerSymbol() {
+//		return markerSymbol;
+//	}
+//
+//	public void setMarkerSymbol(MarkerSymbol markerSymbol) {
+//		this.markerSymbol = markerSymbol;
+//	}
+//
+//	public LineSymbol getLineSymbol() {
+//		return lineSymbol;
+//	}
+//
+//	public void setLineSymbol(LineSymbol lineSymbol) {
+//		this.lineSymbol = lineSymbol;
+//	}
+//
+//	public FillSymbol getFillSymbol() {
+//		return fillSymbol;
+//	}
+//
+//	public void setFillSymbol(FillSymbol fillSymbol) {
+//		this.fillSymbol = fillSymbol;
+//	}
 
 	public void setBeginIdx(int beginIdx) {
 		this.beginIdx = beginIdx;
@@ -275,84 +275,20 @@ public class DrawTool extends Subject {
 //						sendDrawEndEvent();
 //						break;
 //					}
+//				case DrawTool.CIRCLE:
+//						double radius = Math.sqrt(Math.pow(startPoint.getX()
+//								- point.getX(), 2)
+//								+ Math.pow(startPoint.getY() - point.getY(), 2));
+//						getCircle(startPoint, radius, polygon);
+//						DrawTool.this.tempLayer.updateGraphic(graphicID, polygon);
+//						break;
 //				}
 //			}
 //			return super.onTouch(view, event);
 //		}
 
-		@Override
-		public boolean onDragPointerMove(MotionEvent from, MotionEvent to) {
-//			if (active
-//					&& (drawType == ENVELOPE || drawType == FREEHAND_POLYGON
-//					|| drawType == FREEHAND_POLYLINE || drawType == CIRCLE)) {
-//				Point point = mapView.toMapPoint(to.getX(), to.getY());
-//				switch (drawType) {
-//					case DrawTool.ENVELOPE:
-//						envelope.setXMin(startPoint.getX() > point.getX() ? point
-//								.getX() : startPoint.getX());
-//						envelope.setYMin(startPoint.getY() > point.getY() ? point
-//								.getY() : startPoint.getY());
-//						envelope.setXMax(startPoint.getX() < point.getX() ? point
-//								.getX() : startPoint.getX());
-//						envelope.setYMax(startPoint.getY() < point.getY() ? point
-//								.getY() : startPoint.getY());
-//						DrawTool.this.tempLayer.updateGraphic(graphicID, envelope.copy());
-//						break;
-//					case DrawTool.FREEHAND_POLYGON:
-//						polygon.lineTo(point);
-//						DrawTool.this.tempLayer.updateGraphic(graphicID, polygon);
-//						break;
-//					case DrawTool.FREEHAND_POLYLINE:
-//						polyline.lineTo(point);
-//						DrawTool.this.tempLayer.updateGraphic(graphicID, polyline);
-//						break;
-//					case DrawTool.CIRCLE:
-//						double radius = Math.sqrt(Math.pow(startPoint.getX()
-//								- point.getX(), 2)
-//								+ Math.pow(startPoint.getY() - point.getY(), 2));
-//						getCircle(startPoint, radius, polygon);
-//						DrawTool.this.tempLayer.updateGraphic(graphicID, polygon);
-//						break;
-//				}
-//				return true;
-//			}
-			return super.onDragPointerMove(from, to);
-		}
 
-		public boolean onDragPointerUp(MotionEvent from, MotionEvent to) {
-//			if (active && (drawType == ENVELOPE || drawType == FREEHAND_POLYGON
-//					|| drawType == FREEHAND_POLYLINE || drawType == CIRCLE)) {
-//				Point point = mapView.toMapPoint(to.getX(), to.getY());
-//				switch (drawType) {
-//					case DrawTool.ENVELOPE:
-//						envelope.setXMin(startPoint.getX() > point.getX() ? point
-//								.getX() : startPoint.getX());
-//						envelope.setYMin(startPoint.getY() > point.getY() ? point
-//								.getY() : startPoint.getY());
-//						envelope.setXMax(startPoint.getX() < point.getX() ? point
-//								.getX() : startPoint.getX());
-//						envelope.setYMax(startPoint.getY() < point.getY() ? point
-//								.getY() : startPoint.getY());
-//						break;
-//					case DrawTool.FREEHAND_POLYGON:
-//						polygon.lineTo(point);
-//						break;
-//					case DrawTool.FREEHAND_POLYLINE:
-//						polyline.lineTo(point);
-//						break;
-//					case DrawTool.CIRCLE:
-//						double radius = Math.sqrt(Math.pow(startPoint.getX()
-//								- point.getX(), 2)
-//								+ Math.pow(startPoint.getY() - point.getY(), 2));
-//						getCircle(startPoint, radius, polygon);
-//						break;
-//				}
-//				sendDrawEndEvent();
-//				startPoint = null;
-//				return true;
-//			}
-			return super.onDragPointerUp(from, to);
-		}
+
 
 		public boolean onSingleTap(MotionEvent event) {
 			if (active
@@ -395,28 +331,7 @@ public class DrawTool extends Subject {
 						builder.show();
 						break;
 					}
-//					case DrawTool.ENVELOPE:
-//						startPoint = point;
-//						envelope.setCoords(point.getX(), point.getY(),
-//								point.getX(), point.getY());
-//						break;
-//					case DrawTool.CIRCLE:
-//						startPoint = point;
-//						break;
-//					case DrawTool.FREEHAND_POLYGON:
-//						polygon.startPath(point);
-//						break;
 					case DrawTool.POLYLINE: {
-//						for (int i=0;i<20;i++){
-//							for (int j=0;j<20;j++){
-//								if (naviTool.lines[i][j]!=0.0){
-//									polyline.startPath(new Point(naviTool.points.get(i).getPosX(),naviTool.points.get(i).getPosY()));
-//									polyline.lineTo(new Point(naviTool.points.get(j).getPosX(),naviTool.points.get(j).getPosY()));
-//									DrawTool.this.tempLayer.updateGraphic(graphicID, polyline);
-//									sendDrawEndEvent();
-//								}
-//							}
-//						}
 						drawLayer.removeAll();
 						endIdx = naviTool.getNearestPoint(new Position(point.getX(), point.getY()));
 						System.out.println(endIdx);
@@ -453,46 +368,29 @@ public class DrawTool extends Subject {
 			return super.onSingleTap(event);
 		}
 
-		public boolean onDoubleTap(MotionEvent event) {
-			if (active &&(drawType==POLYGON || drawType==POLYLINE)) {
-				Point point = mapView.toMapPoint(event.getX(), event.getY());
-				switch (drawType) {
-					case DrawTool.POLYGON:
-						polygon.lineTo(point);
-						break;
-					case DrawTool.POLYLINE:
-						polyline.lineTo(point);
-						break;
-				}
-				sendDrawEndEvent();
-				startPoint = null;
-				return true;
-			}
-			return super.onDoubleTap(event);
-		}
 
-		private void getCircle(Point center, double radius, Polygon circle) {
-			circle.setEmpty();
-			Point[] points = getPoints(center, radius);
-			circle.startPath(points[0]);
-			for (int i = 1; i < points.length; i++)
-				circle.lineTo(points[i]);
-		}
-
-		private Point[] getPoints(Point center, double radius) {
-			Point[] points = new Point[50];
-			double sin;
-			double cos;
-			double x;
-			double y;
-			for (double i = 0; i < 50; i++) {
-				sin = Math.sin(Math.PI * 2 * i / 50);
-				cos = Math.cos(Math.PI * 2 * i / 50);
-				x = center.getX() + radius * sin;
-				y = center.getY() + radius * cos;
-				points[(int) i] = new Point(x, y);
-			}
-			return points;
-		}
+//		private void getCircle(Point center, double radius, Polygon circle) {
+//			circle.setEmpty();
+//			Point[] points = getPoints(center, radius);
+//			circle.startPath(points[0]);
+//			for (int i = 1; i < points.length; i++)
+//				circle.lineTo(points[i]);
+//		}
+//
+//		private Point[] getPoints(Point center, double radius) {
+//			Point[] points = new Point[50];
+//			double sin;
+//			double cos;
+//			double x;
+//			double y;
+//			for (double i = 0; i < 50; i++) {
+//				sin = Math.sin(Math.PI * 2 * i / 50);
+//				cos = Math.cos(Math.PI * 2 * i / 50);
+//				x = center.getX() + radius * sin;
+//				y = center.getY() + radius * cos;
+//				points[(int) i] = new Point(x, y);
+//			}
+//			return points;
+//		}
 	}
 }

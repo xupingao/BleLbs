@@ -3,7 +3,6 @@
 	<item android:title="定位服务" android:id="@+id/menu_lbs"/>
 	<item android:title="导航服务" android:id="@+id/menu_navi"/>
 	<item android:title="选择图层" android:id="@+id/menu_select"/>
-	<item android:title="原始地图" android:id="@+id/menu_native"/>
 	<item android:title="添加锚点" android:id="@+id/menu_anchor"/>
 
 </menu>

@@ -1,7 +1,5 @@
 package com.ustc.location.navitool;
 
-import android.util.Pair;
-
 import com.ustc.location.MainActivity;
 import com.ustc.location.location.Position;
 

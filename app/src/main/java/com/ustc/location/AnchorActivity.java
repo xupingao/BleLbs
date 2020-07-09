@@ -21,27 +21,15 @@ import com.ustc.location.location.Anchor;
 import com.ustc.location.view.MyMapView;
 
 import java.util.List;
-import java.util.Vector;
 
-/**
- * 程序主界面
- */
 public class AnchorActivity extends AppCompatActivity  {
-    private static final int REQUEST_CODE_OPEN_GPS = 1;
-    private static final int REQUEST_CODE_PERMISSION_LOCATION = 2;
     private MyMapView mapView;
-    private View peopleTag;
-    private View areaTag;
-    private DeviceAdapter mDeviceAdapter;
-    private BleTool bletool;
     private List<Anchor> anchors;
     private SimpleMarkerSymbol markerSymbol;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anchor);
         mapView = (MyMapView) findViewById(R.id.myMapView);
-        peopleTag = findViewById(R.id.people_tag);
-        areaTag = findViewById(R.id.area_tag);
         anchors=(List<Anchor>) getIntent().getSerializableExtra("anchors");
         System.out.println(anchors);
         String path =  "/sdcard/map/shape/room.shp";
@@ -64,7 +52,7 @@ public class AnchorActivity extends AppCompatActivity  {
 
 
         }catch (Exception e){
-            Toast.makeText(this, "定位系统初始化失败！", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "地图绘制程序出现错误", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -96,14 +84,6 @@ public class AnchorActivity extends AppCompatActivity  {
                 mi.setClass(this, MainActivity.class);
                 startActivity(mi);
                 finish();
-                break;
-            case R.id.menu_native:
-                //原始地图
-                mapView.showNativeInfo();
-                mapView.drawLayer.removeAll();
-                mapView.drawTool.deactivate();
-                peopleTag.setVisibility(View.GONE);
-                areaTag.setVisibility(View.GONE);
                 break;
             case R.id.menu_anchor:
                 //添加锚点界面

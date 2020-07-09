@@ -79,20 +79,5 @@
 
     </RelativeLayout>
 
-    <include
-        android:visibility="gone"
-        android:id="@+id/people_tag"
-        android:layout_alignParentBottom="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        layout="@layout/people_tag_layout" />
-
-    <include
-        android:id="@+id/area_tag"
-        android:visibility="gone"
-        android:layout_alignParentBottom="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        layout="@layout/area_tag_layout" />
 
 </RelativeLayout>

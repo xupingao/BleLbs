@@ -47,9 +47,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-/**
- * 程序主界面
- */
 public class MainActivity extends AppCompatActivity  {
     private static final int REQUEST_CODE_OPEN_GPS = 1;
     private static final int REQUEST_CODE_PERMISSION_LOCATION = 2;
@@ -58,8 +55,6 @@ public class MainActivity extends AppCompatActivity  {
     private static String uploadURL = "http://49.235.214.203:8080/upload.php";
     public static final int REFRESH_POS_SIGNAL= 0;
     private MyMapView mapView;
-    private View peopleTag;
-    private View areaTag;
     private DeviceAdapter mDeviceAdapter;
     private BleTool bletool;
     private UserPos userPos;
@@ -76,14 +71,11 @@ public class MainActivity extends AppCompatActivity  {
         markerSymbol = new SimpleMarkerSymbol(Color.BLUE, 8, SimpleMarkerSymbol.STYLE.CIRCLE);
         userPos=new UserPos("userid",new Position(BASE_POINT_X ,BASE_POINT_Y));
         mapView = (MyMapView) findViewById(R.id.myMapView);
-        peopleTag = findViewById(R.id.people_tag);
-        areaTag = findViewById(R.id.area_tag);
-
         String path =  "/sdcard/map/shape/room.shp";
         if (!FileUtils.fileIsExists(path)){
             FileUtils.getInstance(this).copyAssetsToSD("shape","map/shape");
         }
-        Toast.makeText(this, path, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, path, Toast.LENGTH_SHORT).show();
         try{
             loadShpFile(path);
             mapView.initPaintTool(this);
@@ -158,7 +150,6 @@ public class MainActivity extends AppCompatActivity  {
         mapView.drawTool.point.setXY(userPos.getPos().getPosX(), userPos.getPos().getPosY());
         mapView.drawTool.sendDrawEndEvent();
     }
-    //在onCreate()方法中调用该方法即可
 
     /**
      * 设置右上角的菜单选项
@@ -177,7 +168,6 @@ public class MainActivity extends AppCompatActivity  {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_select:
-                //选择图层，调用系统文件夹进行选择
                 Intent intent=new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("*/*");
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -198,7 +188,6 @@ public class MainActivity extends AppCompatActivity  {
                 break;
             }
             case R.id.menu_anchor:
-                //添加锚点界面
                 Intent i = new Intent();
                 i.setClass(this, AnchorActivity.class);
                 i.putExtra("anchors",anchors);
@@ -238,7 +227,7 @@ public class MainActivity extends AppCompatActivity  {
             }
         }
         if (requestCode == 2 ) {
-
+            Toast.makeText(this, "从服务器获取锚点坐标成功", Toast.LENGTH_SHORT).show();
            syncResult=(List<Anchor>)data.getSerializableExtra("syncResult") ;
            beaconPositions= LbsUtils.buildMapping(syncResult);
            anchors=new Vector<Anchor>();
