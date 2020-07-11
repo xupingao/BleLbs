@@ -4,10 +4,12 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.location.LocationManager;
 import android.net.Uri;
@@ -20,6 +22,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,6 +32,7 @@ import android.widget.Toast;
 import com.esri.core.symbol.SimpleMarkerSymbol;
 import com.ustc.location.bluetooth.BleTool;
 import com.ustc.location.bluetooth.DeviceAdapter;
+import com.ustc.location.database.DataBase;
 import com.ustc.location.location.Anchor;
 import com.ustc.location.location.LbsUtils;
 import com.ustc.location.location.Position;
@@ -64,6 +68,7 @@ public class MainActivity extends AppCompatActivity  {
     private List<Anchor> syncResult;
     private Vector<Anchor> anchors;
     private Map<String, Position> beaconPositions;
+    private DataBase db ;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         verifyStoragePermissions(this);
@@ -71,6 +76,7 @@ public class MainActivity extends AppCompatActivity  {
         markerSymbol = new SimpleMarkerSymbol(Color.BLUE, 8, SimpleMarkerSymbol.STYLE.CIRCLE);
         userPos=new UserPos("userid",new Position(BASE_POINT_X ,BASE_POINT_Y));
         mapView = (MyMapView) findViewById(R.id.myMapView);
+        db = new DataBase(getApplicationContext());
         String path =  "/sdcard/map/shape/room.shp";
         if (!FileUtils.fileIsExists(path)){
             FileUtils.getInstance(this).copyAssetsToSD("shape","map/shape");
@@ -227,14 +233,21 @@ public class MainActivity extends AppCompatActivity  {
             }
         }
         if (requestCode == 2 ) {
-            Toast.makeText(this, "从服务器获取锚点坐标成功", Toast.LENGTH_SHORT).show();
-           syncResult=(List<Anchor>)data.getSerializableExtra("syncResult") ;
+            if (resultCode == 0) {
+                Toast.makeText(this, "同步锚点坐标成功", Toast.LENGTH_SHORT).show();
+                syncResult=(List<Anchor>)data.getSerializableExtra("syncResult") ;
+                anchors=new Vector<Anchor>();
+                for (int i=0;i<syncResult.size();i++){
+                    anchors.add(syncResult.get(i));
+                }
+                saveLocalAnchors(db);
+                getLocalAnchors(db);
+            }else{
+                Toast.makeText(this, "同步锚点失败，使用本地数据", Toast.LENGTH_SHORT).show();
+                getLocalAnchors(db);
+            }
            beaconPositions= LbsUtils.buildMapping(syncResult);
-           anchors=new Vector<Anchor>();
-           for (int i=0;i<syncResult.size();i++){
-               anchors.add(syncResult.get(i));
-           }
-           System.out.println(syncResult);
+
             initBle();
             startLbs();
         }
@@ -366,6 +379,32 @@ public class MainActivity extends AppCompatActivity  {
                     Thread.currentThread().interrupt();
                 }
             }
+        }
+    }
+    private void getLocalAnchors(DataBase db) {
+        Cursor cursor = db.queryAnchors();
+        syncResult=new ArrayList<Anchor>();
+        if(cursor!=null&&cursor.moveToFirst()){
+            do{
+                String mac=cursor.getString(cursor.getColumnIndex("mac"));
+                double x=cursor.getDouble(cursor.getColumnIndex("posX"));
+                double y=cursor.getDouble(cursor.getColumnIndex("posY"));
+                syncResult.add(new Anchor(mac,new Position(x,y)));
+            }while(cursor.moveToNext());
+
+        }
+    }
+
+    private void saveLocalAnchors(DataBase db) {
+        for (int i = 0; i < anchors.size(); i++) {
+            Anchor anchor;
+            anchor = anchors.get(i);
+            ContentValues values = new ContentValues();
+            values.put("mac", anchor.getMac());
+            values.put("posX", anchor.getPos().getPosX());
+            values.put("posY", anchor.getPos().getPosY());
+            db.updateAnchor(anchor.getMac());
+            db.insertAnchors(values);
         }
     }
 }

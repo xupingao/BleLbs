@@ -19,7 +19,8 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NaviActivity"></activity>
+        <activity android:name=".bdmapActivity"></activity>
+        <activity android:name=".NaviActivity" />
         <activity android:name=".AnchorActivity" />
         <activity
             android:name=".SyncActivity"

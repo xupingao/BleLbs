@@ -33,26 +33,52 @@ public class SyncActivity extends Activity {
         @Override
         public void handleMessage(android.os.Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
-                case 0:{
-                    Intent i = new Intent();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("result", "同步成功");
-                    bundle.putSerializable("syncResult",syncResult);
-                    setResult(0, i.putExtras(bundle));
-                    SyncActivity.this.finish();
-                    break;
+            switch (sync_kind){
+                case SEND_ANCHOR_POSITION:{
+                    switch (msg.what){
+                        case 0:{
+                            Intent i = new Intent();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("result", "同步成功");
+                            setResult(0, i.putExtras(bundle));
+                            SyncActivity.this.finish();
+                            break;
+                        }
+                        case 1:{
+                            Intent i = new Intent();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("result", "同步失败");
+                            setResult(1, i.putExtras(bundle));
+                            SyncActivity.this.finish();
+                            break;
+                        }
+                    }
                 }
-                case 1:{
-                    Intent i = new Intent();
-                    Bundle bundle = new Bundle();
-                    bundle.putString("result", "同步失败");
-                    bundle.putSerializable("syncResult",syncResult);
-                    setResult(1, i.putExtras(bundle));
-                    SyncActivity.this.finish();
-                    break;
+                case GET_ANCHOR_LIST:{
+                    switch (msg.what){
+                        case 0:{
+                            Intent i = new Intent();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("result", "同步成功");
+                            bundle.putSerializable("syncResult",syncResult);
+                            setResult(0, i.putExtras(bundle));
+                            SyncActivity.this.finish();
+                            break;
+                        }
+                        case 1:{
+                            Intent i = new Intent();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("result", "同步失败");
+                            bundle.putSerializable("syncResult",syncResult);
+                            setResult(1, i.putExtras(bundle));
+                            SyncActivity.this.finish();
+                            break;
+                        }
+                    }
                 }
             }
+
+
 
         }
     };
@@ -115,6 +141,7 @@ public class SyncActivity extends Activity {
                             System.out.println(syncResult);
                         } catch (Exception e) {
                             e.printStackTrace();
+                            syncResult=new Vector<Anchor>();
                             handler.sendEmptyMessage(1);
                         }
                         handler.sendEmptyMessage(0);
