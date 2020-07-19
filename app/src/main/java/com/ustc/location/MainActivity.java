@@ -22,11 +22,9 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.esri.core.symbol.SimpleMarkerSymbol;
@@ -38,6 +36,8 @@ import com.ustc.location.location.LbsUtils;
 import com.ustc.location.location.Position;
 import com.ustc.location.location.UserPos;
 import com.ustc.location.network.JSONParser;
+import com.ustc.location.utils.FileUtils;
+import com.ustc.location.utils.Uri2PathUtil;
 import com.ustc.location.view.MyMapView;
 import com.clj.fastble.BleManager;
 import com.esri.core.geometry.Point;
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity  {
     private static final int REQUEST_CODE_PERMISSION_LOCATION = 2;
     public static final double BASE_POINT_X = 120.72366575339005;
     public static final double BASE_POINT_Y = 31.277829136467126;
-    private static String uploadURL = "http://49.235.214.203:8080/upload.php";
+    private static String uploadURL = "http://192.168.79.1:80/upload.php";
     public static final int REFRESH_POS_SIGNAL= 0;
     private MyMapView mapView;
     private DeviceAdapter mDeviceAdapter;
@@ -74,14 +74,15 @@ public class MainActivity extends AppCompatActivity  {
         verifyStoragePermissions(this);
         setContentView(R.layout.activity_main);
         markerSymbol = new SimpleMarkerSymbol(Color.BLUE, 8, SimpleMarkerSymbol.STYLE.CIRCLE);
-        userPos=new UserPos("userid",new Position(BASE_POINT_X ,BASE_POINT_Y));
+        String userName=getIntent().getStringExtra("userName");
+        System.out.println(userName);
+        userPos=new UserPos(userName,new Position(BASE_POINT_X ,BASE_POINT_Y));
         mapView = (MyMapView) findViewById(R.id.myMapView);
         db = new DataBase(getApplicationContext());
         String path =  "/sdcard/map/shape/room.shp";
         if (!FileUtils.fileIsExists(path)){
             FileUtils.getInstance(this).copyAssetsToSD("shape","map/shape");
         }
-        //Toast.makeText(this, path, Toast.LENGTH_SHORT).show();
         try{
             loadShpFile(path);
             mapView.initPaintTool(this);
@@ -157,9 +158,6 @@ public class MainActivity extends AppCompatActivity  {
         mapView.drawTool.sendDrawEndEvent();
     }
 
-    /**
-     * 设置右上角的菜单选项
-     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = this.getMenuInflater();

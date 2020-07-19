@@ -1,0 +1,307 @@
+@startuml
+
+title __FASTBLELIB's Class Diagram__\n
+
+  namespace com.clj.fastble {
+    class com.clj.fastble.BleManager {
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    class com.clj.fastble.BuildConfig {
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace bluetooth {
+      class com.clj.fastble.bluetooth.BleBluetooth {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace bluetooth {
+      class com.clj.fastble.bluetooth.BleConnector {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace bluetooth {
+      class com.clj.fastble.bluetooth.MultipleBluetoothController {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace bluetooth {
+      class com.clj.fastble.bluetooth.SplitWriter {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace callback {
+      abstract class com.clj.fastble.callback.BleBaseCallback {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace callback {
+      abstract class com.clj.fastble.callback.BleGattCallback {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace callback {
+      abstract class com.clj.fastble.callback.BleIndicateCallback {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace callback {
+      abstract class com.clj.fastble.callback.BleMtuChangedCallback {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace callback {
+      abstract class com.clj.fastble.callback.BleNotifyCallback {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace callback {
+      abstract class com.clj.fastble.callback.BleReadCallback {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace callback {
+      abstract class com.clj.fastble.callback.BleRssiCallback {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace callback {
+      abstract class com.clj.fastble.callback.BleScanAndConnectCallback {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace callback {
+      abstract class com.clj.fastble.callback.BleScanCallback {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace callback {
+      interface com.clj.fastble.callback.BleScanPresenterImp {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace callback {
+      abstract class com.clj.fastble.callback.BleWriteCallback {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace data {
+      class com.clj.fastble.data.BleConnectStateParameter {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace data {
+      class com.clj.fastble.data.BleDevice {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace data {
+      class com.clj.fastble.data.BleMsg {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace data {
+      enum BleScanState {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace data {
+      class com.clj.fastble.data.BleWriteState {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace exception {
+      abstract class com.clj.fastble.exception.BleException {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace exception {
+      class com.clj.fastble.exception.ConnectException {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace exception {
+      class com.clj.fastble.exception.GattException {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace exception {
+      class com.clj.fastble.exception.OtherException {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace exception {
+      class com.clj.fastble.exception.TimeoutException {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace scan {
+      abstract class com.clj.fastble.scan.BleScanPresenter {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace scan {
+      class com.clj.fastble.scan.BleScanRuleConfig {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace scan {
+      class com.clj.fastble.scan.BleScanner {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace utils {
+      class com.clj.fastble.utils.BleLog {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace utils {
+      class com.clj.fastble.utils.BleLruHashMap {
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace utils {
+      class com.clj.fastble.utils.HexUtil {
+      }
+    }
+  }
+  
+
+  com.clj.fastble.BleManager o-- com.clj.fastble.scan.BleScanRuleConfig : bleScanRuleConfig
+  com.clj.fastble.BleManager o-- com.clj.fastble.bluetooth.MultipleBluetoothController : multipleBluetoothController
+  com.clj.fastble.bluetooth.BleBluetooth o-- com.clj.fastble.data.BleDevice : bleDevice
+  com.clj.fastble.bluetooth.BleBluetooth o-- com.clj.fastble.callback.BleGattCallback : bleGattCallback
+  com.clj.fastble.bluetooth.BleBluetooth o-- com.clj.fastble.callback.BleMtuChangedCallback : bleMtuChangedCallback
+  com.clj.fastble.bluetooth.BleBluetooth o-- com.clj.fastble.callback.BleRssiCallback : bleRssiCallback
+  com.clj.fastble.bluetooth.BleBluetooth o-- com.clj.fastble.bluetooth.BleBluetooth.LastState : lastState
+  com.clj.fastble.bluetooth.BleBluetooth o-- com.clj.fastble.bluetooth.BleBluetooth.MainHandler : mainHandler
+  com.clj.fastble.bluetooth.BleConnector o-- com.clj.fastble.bluetooth.BleBluetooth : mBleBluetooth
+  com.clj.fastble.bluetooth.SplitWriter o-- com.clj.fastble.bluetooth.BleBluetooth : mBleBluetooth
+  com.clj.fastble.bluetooth.SplitWriter o-- com.clj.fastble.callback.BleWriteCallback : mCallback
+  com.clj.fastble.callback.BleGattCallback -up-|> android.bluetooth.BluetoothGattCallback
+  com.clj.fastble.callback.BleIndicateCallback -up-|> com.clj.fastble.callback.BleBaseCallback
+  com.clj.fastble.callback.BleMtuChangedCallback -up-|> com.clj.fastble.callback.BleBaseCallback
+  com.clj.fastble.callback.BleNotifyCallback -up-|> com.clj.fastble.callback.BleBaseCallback
+  com.clj.fastble.callback.BleReadCallback -up-|> com.clj.fastble.callback.BleBaseCallback
+  com.clj.fastble.callback.BleRssiCallback -up-|> com.clj.fastble.callback.BleBaseCallback
+  com.clj.fastble.callback.BleScanAndConnectCallback .up.|> com.clj.fastble.callback.BleScanPresenterImp
+  com.clj.fastble.callback.BleScanAndConnectCallback -up-|> com.clj.fastble.callback.BleGattCallback
+  com.clj.fastble.callback.BleScanCallback .up.|> com.clj.fastble.callback.BleScanPresenterImp
+  com.clj.fastble.callback.BleWriteCallback -up-|> com.clj.fastble.callback.BleBaseCallback
+  com.clj.fastble.data.BleDevice .up.|> android.os.Parcelable
+  com.clj.fastble.data.BleDevice .up.|> java.lang.Comparable
+  com.clj.fastble.exception.BleException .up.|> java.io.Serializable
+  com.clj.fastble.exception.ConnectException -up-|> com.clj.fastble.exception.BleException
+  com.clj.fastble.exception.GattException -up-|> com.clj.fastble.exception.BleException
+  com.clj.fastble.exception.OtherException -up-|> com.clj.fastble.exception.BleException
+  com.clj.fastble.exception.TimeoutException -up-|> com.clj.fastble.exception.BleException
+  com.clj.fastble.scan.BleScanPresenter .up.|> android.bluetooth.BluetoothAdapter.LeScanCallback
+  com.clj.fastble.scan.BleScanPresenter o-- com.clj.fastble.callback.BleScanPresenterImp : mBleScanPresenterImp
+  com.clj.fastble.scan.BleScanner o-- com.clj.fastble.scan.BleScanPresenter : mBleScanPresenter
+  com.clj.fastble.scan.BleScanner o-- com.clj.fastble.data.BleScanState : mBleScanState
+  com.clj.fastble.utils.BleLruHashMap -up-|> java.util.LinkedHashMap
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

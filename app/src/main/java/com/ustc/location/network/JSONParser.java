@@ -117,6 +117,7 @@ public class JSONParser {
             Log.d("Buffer Error","Error Converting Reesult "+e.toString());
             return false;
         }
+        System.out.println(json);
         // try parse the string to JSON Object
         int flag;
         try {
@@ -127,5 +128,66 @@ public class JSONParser {
             return false;
         }
         return flag==1;
+    }
+    public static String makeLoginHttpRequest(String Url, String method, List<NameValuePair> params) {
+        // making HTTP Request
+        try {
+            // check for request method
+            if(method == "POST"){
+                DefaultHttpClient httpClient = new DefaultHttpClient();
+                HttpPost httpPost = new HttpPost(Url);
+                httpPost.setEntity(new UrlEncodedFormEntity(params));
+                HttpResponse httpResponse = httpClient.execute(httpPost);
+
+                HttpEntity httpEntity = httpResponse.getEntity();
+                is = httpEntity.getContent();
+            }else
+                // check for request method
+                if(method == "GET"){
+                    DefaultHttpClient httpClient = new DefaultHttpClient();
+                    String paramString = URLEncodedUtils.format(params, "utf-8");
+                    Url += "?" + paramString;
+                    HttpGet httpGet = new HttpGet(Url);
+                    HttpResponse httpResponse = httpClient.execute(httpGet);
+                    HttpEntity httpEntity = httpResponse.getEntity();
+                    is = httpEntity.getContent();
+                }
+
+        } catch (Exception e) {
+            Log.d("Network Error",e.toString());
+            return "";
+        }
+
+        try {
+            BufferedReader  reader = new BufferedReader(
+                    new InputStreamReader(is, "utf-8"),8);
+            StringBuilder sb = new StringBuilder();
+            String  line = null;
+
+            while((line = reader.readLine()) != null){
+                sb.append(line + "\n");
+            }
+            is.close();
+            json = sb.toString();
+        } catch (IOException e) {
+            Log.d("Buffer Error","Error Converting Reesult "+e.toString());
+            return "";
+        }
+        System.out.println(json);
+        // try parse the string to JSON Object
+        int flag;
+        String md5Psw;
+        try {
+            jObj = new JSONObject(json);
+            flag=(int)jObj.get("success");
+            md5Psw=(String)jObj.get("md5Pwd");
+        } catch (JSONException e) {
+            Log.d("JSON Parser", "Error Parsing data" + e.toString());
+            return "";
+        }
+        if (flag==0){
+            return "";
+        }
+        return md5Psw;
     }
 }

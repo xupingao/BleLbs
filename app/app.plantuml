@@ -1,0 +1,304 @@
+@startuml
+
+title __APP's Class Diagram__\n
+
+  namespace com.ustc.location {
+    class com.ustc.location.AnchorActivity {
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    class com.ustc.location.BuildConfig {
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    class com.ustc.location.LoginActivity {
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    class com.ustc.location.LostFindActivity {
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    class com.ustc.location.MD5Utils {
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    class com.ustc.location.MainActivity {
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    class com.ustc.location.NaviActivity {
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    class com.ustc.location.RegisterActivity {
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    class com.ustc.location.SyncActivity {
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    namespace adapter {
+      class com.ustc.location.adapter.PaintToolAdapter {
+      }
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    namespace adapter {
+      abstract class com.ustc.location.adapter.RecyclerViewHolder {
+      }
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    class com.ustc.location.bdmapActivity {
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    namespace bluetooth {
+      class com.ustc.location.bluetooth.BleTool {
+      }
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    namespace bluetooth {
+      class com.ustc.location.bluetooth.DeviceAdapter {
+      }
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    namespace database {
+      class com.ustc.location.database.DataBase {
+      }
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    namespace drawtool {
+      class com.ustc.location.drawtool.DrawEvent {
+      }
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    namespace drawtool {
+      interface com.ustc.location.drawtool.DrawEventListener {
+      }
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    namespace drawtool {
+      class com.ustc.location.drawtool.DrawTool {
+      }
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    namespace drawtool {
+      class com.ustc.location.drawtool.Subject {
+      }
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    namespace location {
+      class com.ustc.location.location.Anchor {
+      }
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    namespace location {
+      class com.ustc.location.location.LbsUtils {
+      }
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    namespace location {
+      class com.ustc.location.location.MathTool {
+      }
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    namespace location {
+      class com.ustc.location.location.Position {
+      }
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    namespace location {
+      class com.ustc.location.location.UserPos {
+      }
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    namespace navitool {
+      class com.ustc.location.navitool.NaviTool {
+      }
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    namespace network {
+      class com.ustc.location.network.JSONParser {
+      }
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    namespace network {
+      class com.ustc.location.network.NetUtils {
+      }
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    namespace utils {
+      class com.ustc.location.utils.FileUtils {
+      }
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    namespace utils {
+      class com.ustc.location.utils.SaveUtils {
+      }
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    namespace utils {
+      class com.ustc.location.utils.SymbolUtils {
+      }
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    namespace utils {
+      class com.ustc.location.utils.Uri2PathUtil {
+      }
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    namespace view {
+      class com.ustc.location.view.MyMapView {
+      }
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    namespace view {
+      class com.ustc.location.view.ShowSymbolInfo {
+      }
+    }
+  }
+  
+
+  com.ustc.location.AnchorActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.ustc.location.AnchorActivity o-- com.ustc.location.view.MyMapView : mapView
+  com.ustc.location.LoginActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.ustc.location.LostFindActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.ustc.location.MainActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.ustc.location.MainActivity o-- com.ustc.location.bluetooth.BleTool : bletool
+  com.ustc.location.MainActivity o-- com.ustc.location.database.DataBase : db
+  com.ustc.location.MainActivity o-- com.ustc.location.MainActivity.LbsThread : lbsThread
+  com.ustc.location.MainActivity o-- com.ustc.location.bluetooth.DeviceAdapter : mDeviceAdapter
+  com.ustc.location.MainActivity o-- com.ustc.location.view.MyMapView : mapView
+  com.ustc.location.MainActivity o-- com.ustc.location.MainActivity.SyncThread : syncThread
+  com.ustc.location.MainActivity o-- com.ustc.location.location.UserPos : userPos
+  com.ustc.location.NaviActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.ustc.location.NaviActivity o-- com.ustc.location.view.MyMapView : mapView
+  com.ustc.location.NaviActivity o-- com.ustc.location.navitool.NaviTool : naviTool
+  com.ustc.location.NaviActivity o-- com.ustc.location.location.UserPos : userPos
+  com.ustc.location.RegisterActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.ustc.location.SyncActivity -up-|> android.app.Activity
+  com.ustc.location.SyncActivity o-- com.ustc.location.location.Anchor : anchor
+  com.ustc.location.adapter.PaintToolAdapter -up-|> android.support.v7.widget.RecyclerView.Adapter
+  com.ustc.location.adapter.PaintToolAdapter o-- com.ustc.location.adapter.RecyclerViewHolder.RVItemClickListener : listener
+  com.ustc.location.adapter.RecyclerViewHolder -up-|> android.support.v7.widget.RecyclerView.ViewHolder
+  com.ustc.location.adapter.RecyclerViewHolder o-- com.ustc.location.adapter.RecyclerViewHolder.RVItemClickListener : listener
+  com.ustc.location.bdmapActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.ustc.location.bluetooth.BleTool o-- com.ustc.location.MainActivity : ctx
+  com.ustc.location.bluetooth.BleTool o-- com.ustc.location.bluetooth.DeviceAdapter : mDeviceAdapter
+  com.ustc.location.bluetooth.BleTool o-- com.ustc.location.location.Position : userPos
+  com.ustc.location.bluetooth.DeviceAdapter -up-|> android.widget.BaseAdapter
+  com.ustc.location.database.DataBase -up-|> android.database.sqlite.SQLiteOpenHelper
+  com.ustc.location.drawtool.DrawEvent -up-|> java.util.EventObject
+  com.ustc.location.drawtool.DrawTool -up-|> com.ustc.location.drawtool.Subject
+  com.ustc.location.drawtool.DrawTool o-- com.ustc.location.drawtool.DrawTool.DrawTouchListener : drawListener
+  com.ustc.location.drawtool.DrawTool o-- com.ustc.location.navitool.NaviTool : naviTool
+  com.ustc.location.location.Anchor .up.|> java.io.Serializable
+  com.ustc.location.location.Anchor o-- com.ustc.location.location.Position : pos
+  com.ustc.location.location.Position .up.|> java.io.Serializable
+  com.ustc.location.location.UserPos .up.|> java.io.Serializable
+  com.ustc.location.location.UserPos o-- com.ustc.location.location.Position : pos
+  com.ustc.location.utils.FileUtils o-- com.ustc.location.utils.FileUtils.FileOperateCallback : callback
+  com.ustc.location.view.MyMapView .up.|> android.view.View.OnClickListener
+  com.ustc.location.view.MyMapView .up.|> android.widget.TextView.OnEditorActionListener
+  com.ustc.location.view.MyMapView .up.|> com.ustc.location.adapter.RecyclerViewHolder.RVItemClickListener
+  com.ustc.location.view.MyMapView .up.|> com.ustc.location.drawtool.DrawEventListener
+  com.ustc.location.view.MyMapView -up-|> android.widget.RelativeLayout
+  com.ustc.location.view.MyMapView o-- com.ustc.location.drawtool.DrawTool : drawTool
+  com.ustc.location.view.MyMapView o-- com.ustc.location.view.ShowSymbolInfo : showTypeInfo
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

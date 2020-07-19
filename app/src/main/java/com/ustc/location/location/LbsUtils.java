@@ -28,17 +28,14 @@ public class LbsUtils {
         // 按信号强度排序
         Collections.sort(bleDevices);
 
-        // 取前三强信号信标
         BleDevice bleDevice1 = bleDevices.get(0);
         BleDevice bleDevice2 = bleDevices.get(1);
         BleDevice bleDevice3 = bleDevices.get(2);
 
-        // 用信标对应MAC地址查找信标坐标，转化为MathToo.Point格式参与运算
         MathTool.Point device1Point = new MathTool.Point(beaconPositions.get(bleDevice1.getMac()).getPosX(), beaconPositions.get(bleDevice1.getMac()).getPosY());
         MathTool.Point device2Point = new MathTool.Point(beaconPositions.get(bleDevice2.getMac()).getPosX(), beaconPositions.get(bleDevice2.getMac()).getPosY());
         MathTool.Point device3Point = new MathTool.Point(beaconPositions.get(bleDevice3.getMac()).getPosX(), beaconPositions.get(bleDevice3.getMac()).getPosY());
 
-        // 将三个rssi都转换成实际的距离
         double [] distances = new double[3];
         distances[0] = MathTool.rssiToDistance(bleDevice1.getRssi()) * Math.cos(Math.toRadians(45));
         distances[1] = MathTool.rssiToDistance(bleDevice2.getRssi()) * Math.cos(Math.toRadians(45));
@@ -56,12 +53,8 @@ public class LbsUtils {
                 new MathTool.Point(device3Point.x, device3Point.y),
                 distances[2]
         );
-        // 尝试进行运算
         while (true) {
-            // 先看三个圆之间是否各自都有交点
-            // 如果1、2两个圆之间没有交点
             if (!MathTool.isTwoCircleIntersect(circle1, circle2)) {
-                // 尝试增加某个圆的半径，谁半径更大增加谁的
                 if (circle1.r > circle2.r) {
                     circle1.r += TRY_DISTANCE_STEP;
                 } else {
@@ -69,10 +62,7 @@ public class LbsUtils {
                 }
                 continue;
             }
-            // 如果1、3两个圆之间没有交点
             if (!MathTool.isTwoCircleIntersect(circle1, circle3)) {
-                // 尝试增加半径
-                // 如果c3的半径比两者之中任意一个都小
                 if (circle3.r < circle1.r && circle3.r < circle2.r) {
                     circle1.r += TRY_DISTANCE_STEP;
                     circle2.r += TRY_DISTANCE_STEP;
@@ -81,10 +71,7 @@ public class LbsUtils {
                 }
                 continue;
             }
-            // 如果2、3两个原之间没有交点
             if (!MathTool.isTwoCircleIntersect(circle2, circle3)) {
-                // 尝试增加半径
-                // 如果c3的半径比两者之中任意一个都小
                 if (circle3.r < circle1.r && circle3.r < circle2.r) {
                     circle1.r += TRY_DISTANCE_STEP;
                     circle2.r += TRY_DISTANCE_STEP;

@@ -1,0 +1,198 @@
+@startuml
+
+title __LOCATION's Class Diagram__\n
+
+  namespace com.ustc.location {
+    class com.ustc.location.AnchorActivity {
+        - anchors : List<Anchor>
+        - markerSymbol : SimpleMarkerSymbol
+        + onCreate()
+        + onCreateOptionsMenu()
+        + onOptionsItemSelected()
+        # onActivityResult()
+        - loadShpFile()
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    class com.ustc.location.LoginActivity {
+        - et_psw : EditText
+        - et_user_name : EditText
+        - psw : String
+        - spPsw : String
+        - userName : String
+        # onActivityResult()
+        # onCreate()
+        - init()
+        - readPsw()
+        - saveLoginStatus()
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    class com.ustc.location.LostFindActivity {
+        # onCreate()
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    class com.ustc.location.MD5Utils {
+        {static} ~ md5()
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    class com.ustc.location.MainActivity {
+        {static} + BASE_POINT_X : double
+        {static} + BASE_POINT_Y : double
+        {static} + REFRESH_POS_SIGNAL : int
+        + handler : Handler
+        {static} - PERMISSIONS_STORAGE : String[]
+        {static} - REQUEST_CODE_OPEN_GPS : int
+        {static} - REQUEST_CODE_PERMISSION_LOCATION : int
+        {static} - REQUEST_EXTERNAL_STORAGE : int
+        - anchors : Vector<Anchor>
+        - beaconPositions : Map<String, Position>
+        - markerSymbol : SimpleMarkerSymbol
+        - syncResult : List<Anchor>
+        {static} - uploadURL : String
+        + onCreate()
+        + onCreateOptionsMenu()
+        + onOptionsItemSelected()
+        + onRequestPermissionsResult()
+        + refreshPostion()
+        + setPosition()
+        {static} + verifyStoragePermissions()
+        # onActivityResult()
+        # onDestroy()
+        - checkGPSIsOpen()
+        - checkPermissionsAndStartScan()
+        - getLocalAnchors()
+        - initBle()
+        - loadShpFile()
+        - onPermissionGranted()
+        - saveLocalAnchors()
+        - startLbs()
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    class com.ustc.location.MainActivity.LbsThread {
+        + run()
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    class com.ustc.location.MainActivity.SyncThread {
+        + run()
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    class com.ustc.location.NaviActivity {
+        - anchors : List<Anchor>
+        - beginPoint : int
+        - lines : double[][]
+        - markerSymbol : SimpleMarkerSymbol
+        - points : Vector<Position>
+        + onCreate()
+        + onCreateOptionsMenu()
+        + onOptionsItemSelected()
+        # onActivityResult()
+        - addLine()
+        - loadShpFile()
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    class com.ustc.location.RegisterActivity {
+        - Sex : RadioGroup
+        - et_psw : EditText
+        - et_psw_again : EditText
+        - et_school : EditText
+        - et_user_name : EditText
+        - psw : String
+        - pswAgain : String
+        - school : String
+        - userName : String
+        # onActivityResult()
+        # onCreate()
+        - getEditString()
+        - init()
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    class com.ustc.location.SyncActivity {
+        {static} - GET_ANCHOR_LIST : int
+        {static} - LOGIN : int
+        {static} - REGISTER : int
+        {static} - SEND_ANCHOR_POSITION : int
+        {static} - adduserURL : String
+        - flag : boolean
+        - handler : Handler
+        {static} - loginURL : String
+        - md5Pwd : String
+        {static} - registerURL : String
+        {static} - requestURL : String
+        - res : String
+        - school : String
+        - sex : int
+        - syncResult : Vector<Anchor>
+        - sync_kind : int
+        - userName : String
+        # onCreate()
+        - processSyncKind()
+        - processThread()
+    }
+  }
+  
+
+  namespace com.ustc.location {
+    class com.ustc.location.bdmapActivity {
+        # onCreate()
+    }
+  }
+  
+
+  com.ustc.location.AnchorActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.ustc.location.AnchorActivity o-- com.ustc.location.view.MyMapView : mapView
+  com.ustc.location.LoginActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.ustc.location.LostFindActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.ustc.location.MainActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.ustc.location.MainActivity o-- com.ustc.location.bluetooth.BleTool : bletool
+  com.ustc.location.MainActivity o-- com.ustc.location.database.DataBase : db
+  com.ustc.location.MainActivity o-- com.ustc.location.MainActivity.LbsThread : lbsThread
+  com.ustc.location.MainActivity o-- com.ustc.location.bluetooth.DeviceAdapter : mDeviceAdapter
+  com.ustc.location.MainActivity o-- com.ustc.location.view.MyMapView : mapView
+  com.ustc.location.MainActivity o-- com.ustc.location.MainActivity.SyncThread : syncThread
+  com.ustc.location.MainActivity o-- com.ustc.location.location.UserPos : userPos
+  com.ustc.location.MainActivity +-down- com.ustc.location.MainActivity.LbsThread
+  com.ustc.location.MainActivity +-down- com.ustc.location.MainActivity.SyncThread
+  com.ustc.location.NaviActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.ustc.location.NaviActivity o-- com.ustc.location.view.MyMapView : mapView
+  com.ustc.location.NaviActivity o-- com.ustc.location.navitool.NaviTool : naviTool
+  com.ustc.location.NaviActivity o-- com.ustc.location.location.UserPos : userPos
+  com.ustc.location.RegisterActivity -up-|> android.support.v7.app.AppCompatActivity
+  com.ustc.location.SyncActivity -up-|> android.app.Activity
+  com.ustc.location.SyncActivity o-- com.ustc.location.location.Anchor : anchor
+  com.ustc.location.bdmapActivity -up-|> android.support.v7.app.AppCompatActivity
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

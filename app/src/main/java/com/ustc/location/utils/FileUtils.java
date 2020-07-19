@@ -1,4 +1,4 @@
-package com.ustc.location;
+package com.ustc.location.utils;
 
 import android.content.Context;
 import android.os.Environment;

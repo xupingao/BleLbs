@@ -1,0 +1,180 @@
+@startuml
+
+title __BLUETOOTH's Class Diagram__\n
+
+  namespace com.clj.fastble {
+    namespace bluetooth {
+      class com.clj.fastble.bluetooth.BleBluetooth {
+          - bleIndicateCallbackHashMap : HashMap<String, BleIndicateCallback>
+          - bleNotifyCallbackHashMap : HashMap<String, BleNotifyCallback>
+          - bleReadCallbackHashMap : HashMap<String, BleReadCallback>
+          - bleWriteCallbackHashMap : HashMap<String, BleWriteCallback>
+          - bluetoothGatt : BluetoothGatt
+          - connectRetryCount : int
+          - coreGattCallback : BluetoothGattCallback
+          - isActiveDisconnect : boolean
+          + BleBluetooth()
+          + addConnectGattCallback()
+          + addIndicateCallback()
+          + addMtuChangedCallback()
+          + addNotifyCallback()
+          + addReadCallback()
+          + addRssiCallback()
+          + addWriteCallback()
+          + clearCharacterCallback()
+          + connect()
+          + connect()
+          + destroy()
+          + disconnect()
+          + getBluetoothGatt()
+          + getDevice()
+          + getDeviceKey()
+          + newBleConnector()
+          + removeConnectGattCallback()
+          + removeIndicateCallback()
+          + removeMtuChangedCallback()
+          + removeNotifyCallback()
+          + removeReadCallback()
+          + removeRssiCallback()
+          + removeWriteCallback()
+          - closeBluetoothGatt()
+          - disconnectGatt()
+          - refreshDeviceCache()
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace bluetooth {
+      enum LastState {
+        CONNECT_CONNECTED
+        CONNECT_CONNECTING
+        CONNECT_DISCONNECT
+        CONNECT_FAILURE
+        CONNECT_IDLE
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace bluetooth {
+      class com.clj.fastble.bluetooth.BleBluetooth.MainHandler {
+          + handleMessage()
+          ~ MainHandler()
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace bluetooth {
+      class com.clj.fastble.bluetooth.BleConnector {
+          {static} - UUID_CLIENT_CHARACTERISTIC_CONFIG_DESCRIPTOR : String
+          - mBluetoothGatt : BluetoothGatt
+          - mCharacteristic : BluetoothGattCharacteristic
+          - mGattService : BluetoothGattService
+          - mHandler : Handler
+          + disableCharacteristicIndicate()
+          + disableCharacteristicNotify()
+          + enableCharacteristicIndicate()
+          + enableCharacteristicNotify()
+          + indicateMsgInit()
+          + mtuChangedMsgInit()
+          + notifyMsgInit()
+          + readCharacteristic()
+          + readMsgInit()
+          + readRemoteRssi()
+          + requestConnectionPriority()
+          + rssiMsgInit()
+          + setMtu()
+          + withUUIDString()
+          + writeCharacteristic()
+          + writeMsgInit()
+          ~ BleConnector()
+          - formUUID()
+          - handleCharacteristicIndicateCallback()
+          - handleCharacteristicNotifyCallback()
+          - handleCharacteristicReadCallback()
+          - handleCharacteristicWriteCallback()
+          - handleRSSIReadCallback()
+          - handleSetMtuCallback()
+          - setCharacteristicIndication()
+          - setCharacteristicNotification()
+          - withUUID()
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace bluetooth {
+      class com.clj.fastble.bluetooth.MultipleBluetoothController {
+          - bleLruHashMap : BleLruHashMap<String, BleBluetooth>
+          - bleTempHashMap : HashMap<String, BleBluetooth>
+          + MultipleBluetoothController()
+          + addBleBluetooth()
+          + buildConnectingBle()
+          + destroy()
+          + disconnect()
+          + disconnectAllDevice()
+          + getBleBluetooth()
+          + getBleBluetoothList()
+          + getDeviceList()
+          + isContainDevice()
+          + isContainDevice()
+          + refreshConnectedDevice()
+          + removeBleBluetooth()
+          + removeConnectingBle()
+      }
+    }
+  }
+  
+
+  namespace com.clj.fastble {
+    namespace bluetooth {
+      class com.clj.fastble.bluetooth.SplitWriter {
+          - mCount : int
+          - mData : byte[]
+          - mDataQueue : Queue<byte[]>
+          - mHandler : Handler
+          - mHandlerThread : HandlerThread
+          - mIntervalBetweenTwoPackage : long
+          - mSendNextWhenLastSuccess : boolean
+          - mTotalNum : int
+          - mUuid_service : String
+          - mUuid_write : String
+          + SplitWriter()
+          + splitWrite()
+          - release()
+          {static} - splitByte()
+          - splitWrite()
+          - write()
+      }
+    }
+  }
+  
+
+  com.clj.fastble.bluetooth.BleBluetooth o-- com.clj.fastble.data.BleDevice : bleDevice
+  com.clj.fastble.bluetooth.BleBluetooth o-- com.clj.fastble.callback.BleGattCallback : bleGattCallback
+  com.clj.fastble.bluetooth.BleBluetooth o-- com.clj.fastble.callback.BleMtuChangedCallback : bleMtuChangedCallback
+  com.clj.fastble.bluetooth.BleBluetooth o-- com.clj.fastble.callback.BleRssiCallback : bleRssiCallback
+  com.clj.fastble.bluetooth.BleBluetooth o-- com.clj.fastble.bluetooth.BleBluetooth.LastState : lastState
+  com.clj.fastble.bluetooth.BleBluetooth o-- com.clj.fastble.bluetooth.BleBluetooth.MainHandler : mainHandler
+  com.clj.fastble.bluetooth.BleBluetooth +-down- com.clj.fastble.bluetooth.BleBluetooth.LastState
+  com.clj.fastble.bluetooth.BleBluetooth +-down- com.clj.fastble.bluetooth.BleBluetooth.MainHandler
+  com.clj.fastble.bluetooth.BleBluetooth.MainHandler -up-|> android.os.Handler
+  com.clj.fastble.bluetooth.BleConnector o-- com.clj.fastble.bluetooth.BleBluetooth : mBleBluetooth
+  com.clj.fastble.bluetooth.SplitWriter o-- com.clj.fastble.bluetooth.BleBluetooth : mBleBluetooth
+  com.clj.fastble.bluetooth.SplitWriter o-- com.clj.fastble.callback.BleWriteCallback : mCallback
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

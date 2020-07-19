@@ -332,6 +332,16 @@ public class DrawTool extends Subject {
 						break;
 					}
 					case DrawTool.POLYLINE: {
+//						for (int i=0;i<20;i++){
+//							for (int j=0;j<20;j++){
+//								if (naviTool.lines[i][j]!=0.0){
+//									polyline.startPath(new Point(naviTool.points.get(i).getPosX(),naviTool.points.get(i).getPosY()));
+//									polyline.lineTo(new Point(naviTool.points.get(j).getPosX(),naviTool.points.get(j).getPosY()));
+//									DrawTool.this.tempLayer.updateGraphic(graphicID, polyline);
+//									sendDrawEndEvent();
+//								}
+//							}
+//						}
 						drawLayer.removeAll();
 						endIdx = naviTool.getNearestPoint(new Position(point.getX(), point.getY()));
 						System.out.println(endIdx);

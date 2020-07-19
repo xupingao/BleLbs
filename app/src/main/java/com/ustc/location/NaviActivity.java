@@ -108,6 +108,14 @@ public class NaviActivity extends AppCompatActivity  {
             DrawEvent e = new DrawEvent(mapView.drawTool, DrawEvent.DRAW_END,
                     mapView.drawTool.drawGraphic);
             mapView.drawTool.notifyEvent(e);
+//            for (int i=0;i<points.size();i++){
+//                mapView.drawTool.point = new Point();
+//                mapView.drawTool.drawGraphic = new Graphic(mapView.drawTool.point, markerSymbol);
+//                mapView.drawTool.point.setXY(points.get(i).getPosX(),points.get(i).getPosY());
+//                DrawEvent t = new DrawEvent(mapView.drawTool, DrawEvent.DRAW_END,
+//                        mapView.drawTool.drawGraphic);
+//                mapView.drawTool.notifyEvent(t);
+//            }
             mapView.drawTool.activate(DrawTool.POLYLINE);
         }catch (Exception e){
             Toast.makeText(this, "地图绘制程序出现错误", Toast.LENGTH_SHORT).show();
